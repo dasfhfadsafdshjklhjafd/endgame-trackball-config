@@ -1,0 +1,14 @@
+&zip_2s_mixer {
+	single-sensor-mode;
+	single-sensor-primary = <2>;
+	/* a b c d (1000 == 1.0). Adjust after calibration. */
+	single-sensor-transform = <1000 0 0 1000>;
+};
+
+&trackball_primary {
+	status = "disabled";
+};
+
+&trackball_primary_listener {
+	status = "disabled";
+};

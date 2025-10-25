@@ -1,0 +1,19 @@
+menu "Endgame Trackball options"
+
+config EFOGTECH_TRACKBALL_PMW3610_EXTRA_WAKE_DELAY
+    bool "Add extra PMW3610 wake delay"
+    help
+      Enable this if you need additional time for the PMW3610 sensors to wake
+      up before the driver performs the product ID check. Useful for marginal
+      hardware or when running without the Studio debug snippets.
+
+config EFOGTECH_TRACKBALL_PMW3610_EXTRA_WAKE_DELAY_MS
+    int "PMW3610 extra wake delay (ms)"
+    depends on EFOGTECH_TRACKBALL_PMW3610_EXTRA_WAKE_DELAY
+    range 0 500
+    default 75
+    help
+      Delay to insert ahead of the PMW3610 init sequence. Increase if sensors
+      still report 0xFF product IDs during startup.
+
+endmenu

@@ -1,0 +1,5 @@
+# Copyright (c) 2024 Efogtech
+# SPDX-License-Identifier: MIT
+
+config SHIELD_SINGLE_SENSOR
+	def_bool $(shields_list_contains,single_sensor)
