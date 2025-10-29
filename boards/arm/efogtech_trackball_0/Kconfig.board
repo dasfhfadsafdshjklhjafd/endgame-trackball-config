@@ -1,3 +1,30 @@
 config BOARD_EFOGTECH_TRBL_52833
     bool "efogtech_trackball_0"
     depends on SOC_NRF52833_QIAA
+
+if BOARD_EFOGTECH_TRBL_52833
+
+config EFOG_TRACKBALL_AXIS_CLAMPER_TUNE
+    bool "Enable custom axis clamper tuning"
+    default n
+
+config EFOG_TRACKBALL_AXIS_CLAMPER_HISTORY
+    int "Axis clamper history size"
+    default 3
+    depends on EFOG_TRACKBALL_AXIS_CLAMPER_TUNE
+
+config EFOG_TRACKBALL_AXIS_CLAMPER_THRESHOLD
+    int "Axis clamper threshold percentage"
+    default 2
+    depends on EFOG_TRACKBALL_AXIS_CLAMPER_TUNE
+
+config EFOG_TRACKBALL_AXIS_CLAMPER_HYSTERESIS
+    int "Axis clamper hysteresis percentage"
+    default 1
+    depends on EFOG_TRACKBALL_AXIS_CLAMPER_TUNE
+
+config EFOG_TRACKBALL_CPI
+    int "Trackball sensor CPI"
+    default 3200
+
+endif

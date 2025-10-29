@@ -6,6 +6,18 @@
 #include <behaviors/rate_limit.dtsi>
 #include <behaviors/auto_hold.dtsi>
 
+#ifndef CONFIG_EFOG_TRACKBALL_CPI
+#define CONFIG_EFOG_TRACKBALL_CPI 3200
+#endif
+
+#if IS_ENABLED(CONFIG_EFOG_TRACKBALL_AXIS_CLAMPER_TUNE)
+&zip_axis_clamper {
+	history-size = <CONFIG_EFOG_TRACKBALL_AXIS_CLAMPER_HISTORY>;
+	threshold = <CONFIG_EFOG_TRACKBALL_AXIS_CLAMPER_THRESHOLD>;
+	hysteresis = <CONFIG_EFOG_TRACKBALL_AXIS_CLAMPER_HYSTERESIS>;
+};
+#endif
+
 &zip_2s_mixer {
 	status = "okay";
 	sync-report-ms = <1>;
@@ -86,7 +98,7 @@
 		reg = <0>;
 		spi-max-frequency = <2000000>;
 		irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-		cpi = <3200>;
+		cpi = <CONFIG_EFOG_TRACKBALL_CPI>;
 		evt-type = <INPUT_EV_REL>;
 		x-input-code = <INPUT_REL_X>;
 		y-input-code = <INPUT_REL_Y>;
@@ -117,7 +129,7 @@
 		spi-max-frequency = <2000000>;
 		irq-gpios = <&gpio1 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
 		rst-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
-		cpi = <3200>;
+		cpi = <CONFIG_EFOG_TRACKBALL_CPI>;
 		evt-type = <INPUT_EV_REL>;
 		x-input-code = <INPUT_REL_X>;
 		y-input-code = <INPUT_REL_Y>;
