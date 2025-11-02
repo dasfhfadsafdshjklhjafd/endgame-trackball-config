@@ -27,4 +27,11 @@ config EFOG_TRACKBALL_CPI
     int "Trackball sensor CPI"
     default 3200
 
+config EFOG_TRACKBALL_POINTER_FLIPPED
+    bool "Invert pointer axes (rotate trackball 180 degrees)"
+    default n
+    help
+      When enabled, swap the movement direction so the pointer behaves correctly
+      when the trackball is used upside-down (both X and Y axes reversed).
+
 endif

@@ -12,4 +12,3 @@
 &trackball_primary_listener {
 	status = "disabled";
 };
-
