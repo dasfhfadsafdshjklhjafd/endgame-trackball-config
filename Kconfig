@@ -1,0 +1,50 @@
+menu "Efog trackball options"
+
+config EFOG_SCROLL_STEP
+	int "Scroll sensitivity step (thousandths)"
+	default 10
+	range 1 100
+	help
+	  Step applied by scroll sensitivity behaviors. Units are 1/1000, so 10 equals
+	  a 0.010 change to the twist coefficient.
+
+config EFOG_SCROLL_MIN_STEP
+	int "Scroll sensitivity minimum step count"
+	default 2
+	range 1 255
+	help
+	  Lower bound (in multiples of CONFIG_EFOG_SCROLL_STEP) for scroll sensitivity.
+
+config EFOG_SCROLL_MAX_STEP
+	int "Scroll sensitivity maximum step count"
+	default 12
+	range 1 255
+	help
+	  Upper bound (in multiples of CONFIG_EFOG_SCROLL_STEP) for scroll sensitivity.
+
+config EFOG_SCROLL_TOGGLE_STEP
+	int "Scroll toggle step delta (thousandths)"
+	default 30
+	range 1 255
+	help
+	  Step size used by the toggle behavior. Units are 1/1000.
+
+config EFOG_SCROLL_TOGGLE_MIN
+	int "Scroll toggle minimum step count"
+	default 1
+	range 1 255
+
+config EFOG_SCROLL_TOGGLE_MAX
+	int "Scroll toggle maximum step count"
+	default 2
+	range 1 255
+
+config EFOG_SCROLL_DEFAULT
+	int "Default scroll sensitivity (thousandths)"
+	default 1000
+	range 1 2000
+	help
+	  Base twist scroll coefficient applied at boot before sensitivity behaviors
+	  or saved settings adjust it. Units are 1/1000.
+
+endmenu

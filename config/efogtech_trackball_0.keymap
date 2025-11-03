@@ -11,6 +11,25 @@
 #include <behaviors/rate_limit.dtsi>
 #include <behaviors/auto_hold.dtsi>
 
+#ifndef CONFIG_EFOG_SCROLL_STEP
+#define CONFIG_EFOG_SCROLL_STEP 10
+#endif
+#ifndef CONFIG_EFOG_SCROLL_MIN_STEP
+#define CONFIG_EFOG_SCROLL_MIN_STEP 2
+#endif
+#ifndef CONFIG_EFOG_SCROLL_MAX_STEP
+#define CONFIG_EFOG_SCROLL_MAX_STEP 12
+#endif
+#ifndef CONFIG_EFOG_SCROLL_TOGGLE_STEP
+#define CONFIG_EFOG_SCROLL_TOGGLE_STEP 30
+#endif
+#ifndef CONFIG_EFOG_SCROLL_TOGGLE_MIN
+#define CONFIG_EFOG_SCROLL_TOGGLE_MIN 1
+#endif
+#ifndef CONFIG_EFOG_SCROLL_TOGGLE_MAX
+#define CONFIG_EFOG_SCROLL_TOGGLE_MAX 2
+#endif
+
 #define LAYER_DEFAULT 0
 #define LAYER_EXTRAS 1
 #define LAYER_DEVICE 2
@@ -164,17 +183,17 @@
 
 		scrlsens: p2sm_scroll_sensitivity {
 			feedback-duration = <65>;
-			step = <10>;
-			min-step = <2>;
-			max-step = <12>;
+			step = <CONFIG_EFOG_SCROLL_STEP>;
+			min-step = <CONFIG_EFOG_SCROLL_MIN_STEP>;
+			max-step = <CONFIG_EFOG_SCROLL_MAX_STEP>;
 		};
 
 		scrlsenstog: p2sm_sens_toggle {
 			display-name = "Scroll sensitivity (toggle 3%/6%)";
 			feedback-duration = <65>;
-			step = <30>;
-			min-step = <1>;
-			max-step = <2>;
+			step = <CONFIG_EFOG_SCROLL_TOGGLE_STEP>;
+			min-step = <CONFIG_EFOG_SCROLL_TOGGLE_MIN>;
+			max-step = <CONFIG_EFOG_SCROLL_TOGGLE_MAX>;
 			scroll;
 		};
 
@@ -195,9 +214,9 @@
 			feedback-duration = <65>;
 			feedback-gpios = <&gpio0 24 GPIO_ACTIVE_HIGH>;
 			feedback-extra-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>;
-			step = <10>;
-			min-step = <2>;
-			max-step = <12>;
+			step = <CONFIG_EFOG_SCROLL_STEP>;
+			min-step = <CONFIG_EFOG_SCROLL_MIN_STEP>;
+			max-step = <CONFIG_EFOG_SCROLL_MAX_STEP>;
 			scroll;
 		};
 
