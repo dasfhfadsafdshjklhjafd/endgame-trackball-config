@@ -47,4 +47,68 @@ config EFOG_SCROLL_DEFAULT
 	  Base twist scroll coefficient applied at boot before sensitivity behaviors
 	  or saved settings adjust it. Units are 1/1000.
 
+config EFOG_SINGLE_SENSOR_BLE_PRESET
+	bool "Use low-latency BLE preset"
+	default y
+	help
+	  Tighten the BLE connection interval and shrink the HID queues to keep
+	  pointer latency low. Disable to fall back to ZMK's standard BLE behavior.
+
+config EFOG_SETTINGS_WIPE_ON_BOOT
+	bool "Erase saved mixer settings on boot"
+	default n
+	help
+	  When enabled, the firmware removes the persisted P2SM sensitivity values
+	  during startup. Flash once with this option, then rebuild without it to
+	  avoid wiping on every boot.
+
 endmenu
+
+if EFOG_SINGLE_SENSOR_BLE_PRESET
+
+config BT_PERIPHERAL_PREF_MIN_INT
+	default 6
+
+config BT_PERIPHERAL_PREF_MAX_INT
+	default 6
+
+config BT_PERIPHERAL_PREF_LATENCY
+	default 0
+
+config BT_PERIPHERAL_PREF_TIMEOUT
+	default 400
+
+config ZMK_BLE_FORCE_CONN_PARAMS
+	default y
+
+config ZMK_BLE_FORCE_CONN_PARAMS_MAX_INTERVAL
+	default 6
+
+config ZMK_BLE_FORCE_CONN_PARAMS_MAX_LATENCY
+	default 0
+
+config ZMK_BLE_FORCE_CONN_PARAMS_RETRY_MS
+	default 500
+
+config ZMK_BLE_FORCE_CONN_PARAMS_MAX_RETRIES
+	default 4
+
+config ZMK_BLE_FORCE_CONN_PARAMS_DISCONNECT
+	default y
+
+config ZMK_BLE_THREAD_PRIORITY
+	default 3
+
+config ZMK_BLE_THREAD_STACK_SIZE
+	default 2048
+
+config ZMK_BLE_MOUSE_REPORT_QUEUE_SIZE
+	default 1
+
+config ZMK_BLE_KEYBOARD_REPORT_QUEUE_SIZE
+	default 1
+
+config ZMK_BLE_CONSUMER_REPORT_QUEUE_SIZE
+	default 1
+
+endif

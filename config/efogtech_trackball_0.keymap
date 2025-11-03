@@ -52,8 +52,8 @@
 			sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp LC(TAB) LC(LS(TAB))>;
 			bindings = <
 				&ltmkp LAYER_SNIPE ENTER  &ltmkp LAYER_SCROLL ESC
-				&mkp MCLK                &msc MOVE_Y(150)
-				&ltm LAYER_EXTRAS MB4     &msc MOVE_Y(-150)
+				&mkp MCLK                &ltmkp LAYER_SNIPE ENTER
+				&mkp MCLK                &msc MOVE_Y(-150)
 				&mkp LCLK                &mkp RCLK
 			>;
 		};
