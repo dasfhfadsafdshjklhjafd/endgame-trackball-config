@@ -111,4 +111,102 @@ config ZMK_BLE_KEYBOARD_REPORT_QUEUE_SIZE
 config ZMK_BLE_CONSUMER_REPORT_QUEUE_SIZE
 	default 1
 
+config EFOG_BLE_CONN_PARAMS_RESUME_DELAY
+	int "Delay before forcing BLE params after activity (ms)"
+	default 200
+
 endif
+
+menu "Efog BLE options"
+
+config EFOG_BLE_BASE_MIN_INT
+	int "Stable reconnect minimum interval (1.25 ms units)"
+	default 12
+	range 6 3200
+	help
+	  Preferred minimum connection interval requested immediately after (re)connection.
+	  Pick a value the host is likely to accept during wake from sleep. Units are 1.25 ms.
+
+config EFOG_BLE_BASE_MAX_INT
+	int "Stable reconnect maximum interval (1.25 ms units)"
+	default 24
+	range 6 3200
+	help
+	  Preferred maximum connection interval requested immediately after (re)connection.
+	  Keep this close to the minimum to minimise latency without triggering host timeouts.
+
+config EFOG_BLE_BASE_LATENCY
+	int "Stable reconnect slave latency"
+	default 0
+	range 0 499
+	help
+	  Peripheral latency value used during the stable reconnect phase. Zero disables latency.
+
+config EFOG_BLE_FAST_MIN_INT
+	int "Fast mode minimum interval (1.25 ms units)"
+	default 6
+	range 6 3200
+	help
+	  Minimum connection interval requested once the link is active and responsive.
+
+config EFOG_BLE_FAST_MAX_INT
+	int "Fast mode maximum interval (1.25 ms units)"
+	default 6
+	range 6 3200
+	help
+	  Maximum interval paired with the fast-mode minimum interval.
+
+config EFOG_BLE_FAST_LATENCY
+	int "Fast mode slave latency"
+	default 0
+	range 0 499
+	help
+	  Latency used when requesting the fast-mode connection parameters.
+
+config EFOG_BLE_FAST_REQUEST_DELAY_MS
+	int "Delay before fast-mode request (ms)"
+	default 6000
+	range 100 600000
+	help
+	  Duration to wait after the host updates parameters before attempting to request
+	  the fast interval. Gives the operating system time to settle after resume.
+
+config EFOG_BLE_FAST_REQUEST_RETRIES
+	int "Maximum fast-mode retries"
+	default 2
+	range 0 10
+	help
+	  Number of additional attempts to request the fast parameters if the host rejects
+	  the first request. Set to zero to disable retries entirely.
+
+config EFOG_BLE_FAST_REQUEST_SPACING_MS
+	int "Spacing between fast-mode retries (ms)"
+	default 1500
+	range 100 60000
+	help
+	  Delay between repeated fast parameter requests when retries are enabled.
+
+config EFOG_BLE_FAST_RETRY_FOREVER
+	bool "Keep requesting fast-mode parameters indefinitely"
+	default n
+	help
+	  Keep rescheduling the fast-mode worker even after the retry budget above is exhausted.
+	  Disable to stop requesting once CONFIG_EFOG_BLE_FAST_REQUEST_RETRIES attempts have run.
+
+config EFOG_BLE_FAST_FORCE_DISCONNECT
+	bool "Disconnect if fast-mode parameters never land"
+	default n
+	help
+	  Drop the BLE link when the host ignores the fast interval for too long so it reconnects and
+	  renegotiates fresh parameters.
+
+config EFOG_BLE_FAST_FORCE_DISCONNECT_ATTEMPTS
+	int "Fast-mode requests before disconnecting"
+	depends on EFOG_BLE_FAST_FORCE_DISCONNECT
+	default 24
+	range 1 255
+	help
+	  Number of consecutive failed fast parameter requests before triggering a disconnect. Multiply
+	  by CONFIG_EFOG_BLE_FAST_REQUEST_SPACING_MS to compute the total wait duration.
+
+endmenu
